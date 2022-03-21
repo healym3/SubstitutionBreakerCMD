@@ -61,11 +61,11 @@ public class Breaker {
                 stringBuilder.append(ch);
             }
         }
-        cipher = stringBuilder.toString();
+        String cipherAlphabetOnly = stringBuilder.toString();
 
-        int[] cipherBinary = new int[cipher.length()];
-        for (int i = 0; i < cipher.length(); i++) {
-            int ch = transCharToInt.get(cipher.charAt(i));
+        int[] cipherBinary = new int[cipherAlphabetOnly.length()];
+        for (int i = 0; i < cipherAlphabetOnly.length(); i++) {
+            int ch = transCharToInt.get(cipherAlphabetOnly.charAt(i));
             cipherBinary[i] = ch;
 
         }
@@ -105,6 +105,10 @@ public class Breaker {
             }
         }
         System.out.println("Final: " + bestKey);
+
+
+
+
         int textLength = cipherBinary.length;
         int[] plaintext = new int[textLength];
         for (int i = 0; i < textLength; i++) {

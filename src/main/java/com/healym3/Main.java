@@ -37,6 +37,14 @@ public class Main {
                 "kixhrjm qttxpb bmdcremb mx qkkta msrvi jxdibr uqmrivqtb qec trqieven " +
                 "rykrivrejrb mx brurbmri txen irqt pxitc kixhrjmb.");
 
-        breaker.breakCipher("Zn nabomrct wbtn, Tbewvc Ovmorvkvon cvvw ebmn bu vivoxrnv. Msvh’ov z szow-jbofrct yovvw. Tbewvc Ovmorvkvon zov lnvw ubo vkvohmsrct uobd slcmrct zcw mozxfrct mb ovnxlv zcw nvokrxv wbt jbof. Wvnarmv mszm aezhule, nbdvmrdvn tbbuh wvdvzcbo, msvh evzoc plrxfeh zcw xzc dznmvo z dlemrmlwv bu nfreen, rcxelwrct sbj mb avoubod zn nvzoxs zcw ovnxlv wbtn zm msv nrmv bu z wrnznmvo. Tbewvc Ovmorvkvon dzfv mba-cbmxs msvozah wbtn. Tbewvcn zov bumvc vdaebhvw zn msvozah wbtn mb nbbmsv zcw xzed avbaev. Tbewvcn nvvd mb szkv ovnvokvn bu vdazmsh zcw lcxbcwrmrbcze ebkv. Msvov’n qlnm nbdvmsrct zyblm z Tbewvc mszm xzc xzed zcw xbdubom zchbcv, uobd hblct xsrewovc mb vewvoeh azmrvcmn. Aznm alaahsbbw, Tbewvc Ovmorvkvon bumvc nmzh hblct zm svzom. Hbl fcbj zee mszm vilyvozcm alaah yvszkrbo? Mszm mvcwn mb eznm ebctvo rc Tbewvc Ovmorvkvon mszc bmsvo yovvwn. Msvh dzmlov nebjeh zcw xzc yv aezhule zcw wbjcortsm nreeh rcmb zwlemsbbw.");
+        breaker.breakCipher("Zn nabomrct wbtn, Tbewvc Ovmorvkvon cvvw ebmn bu vivoxrnv. " +
+                //"Msvh’ov z szow-jbofrct yovvw. Tbewvc Ovmorvkvon zov lnvw ubo vkvohmsrct uobd slcmrct zcw mozxfrct mb ovnxlv zcw " +
+                //"nvokrxv wbt jbof. Wvnarmv mszm aezhule, nbdvmrdvn tbbuh wvdvzcbo, msvh evzoc plrxfeh zcw xzc dznmvo z dlemrmlwv bu nfreen, rcxelwrct sbj mb avoubod zn nvzoxs zcw " +
+                //"ovnxlv wbtn zm msv nrmv bu z wrnznmvo. Tbewvc Ovmorvkvon dzfv mba-cbmxs msvozah wbtn. Tbewvcn zov bumvc vdaebhvw zn msvozah wbtn mb nbbmsv zcw xzed avbaev. " +
+                //"Tbewvcn nvvd mb szkv ovnvokvn bu vdazmsh zcw lcxbcwrmrbcze ebkv. Msvov’n qlnm nbdvmsrct zyblm z Tbewvc mszm xzc xzed zcw xbdubom zchbcv, " +
+                //"uobd hblct xsrewovc mb vewvoeh azmrvcmn. Aznm alaahsbbw, Tbewvc Ovmorvkvon bumvc nmzh hblct zm svzom. Hbl fcbj zee mszm vilyvozcm " +
+                //"alaah yvszkrbo? Mszm mvcwn mb eznm ebctvo rc Tbewvc Ovmorvkvon mszc bmsvo yovvwn. " +
+                "Msvh dzmlov nebjeh zcw xzc yv aezhule " +
+                "zcw wbjcortsm nreeh rcmb zwlemsbbw.");
     }
 }
