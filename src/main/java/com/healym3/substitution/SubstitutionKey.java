@@ -8,13 +8,13 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-public class Key {
+public class SubstitutionKey {
     private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private Map<Character, Character> key;
     private Map<Character, Character> keyDecrypt;
     private String keyString;
 
-    public Key() {
+    public SubstitutionKey() {
         key = new HashMap<Character, Character>();
         keyDecrypt = new HashMap<Character, Character>();
         keyString = "";

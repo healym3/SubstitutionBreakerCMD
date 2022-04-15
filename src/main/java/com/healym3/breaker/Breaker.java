@@ -4,6 +4,8 @@ import java.io.*;
 import java.security.SecureRandom;
 import java.util.*;
 
+import com.healym3.substitution.Substitution;
+import com.healym3.substitution.SubstitutionKey;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -18,15 +20,16 @@ public class Breaker {
     private Map<Integer, Character> transIntToChar;
     private int[] quadgrams;
 
+    private String breakerResult;
 
     public Breaker() {
 
-        this.transCharToInt = new HashMap<Character, Integer>();
+        this.transCharToInt = new HashMap<>();
 
         for (int i = 0; i < ALPHABET_SIZE; i++) {
             transCharToInt.put(ALPHABET.charAt(i), i);
         }
-        this.transIntToChar = new HashMap<Integer, Character>();
+        this.transIntToChar = new HashMap<>();
 
         for (int i = 0; i < ALPHABET_SIZE; i++) {
             transIntToChar.put(i, ALPHABET.charAt(i));
@@ -52,6 +55,10 @@ public class Breaker {
 
     }
 
+    public String getBreakerResult() {
+        return breakerResult;
+    }
+
     public void breakCipher(String cipher){
         cipher = cipher.toLowerCase(Locale.ROOT);
         StringBuilder stringBuilder = new StringBuilder();
@@ -69,7 +76,7 @@ public class Breaker {
             cipherBinary[i] = ch;
 
         }
-        ArrayList<ArrayList<Integer>> charPositions = new ArrayList(ALPHABET_SIZE);
+        ArrayList<ArrayList<Integer>> charPositions = new ArrayList<>(ALPHABET_SIZE);
         for (int i = 0; i < ALPHABET_SIZE; i++) {
             charPositions.add(new ArrayList<Integer>());
         }
@@ -80,7 +87,7 @@ public class Breaker {
 
         System.out.println(charPositions);
 
-        ArrayList<Integer> key = new ArrayList(ALPHABET_SIZE);
+        ArrayList<Integer> key = new ArrayList<>(ALPHABET_SIZE);
         for (int i = 0; i < ALPHABET_SIZE; i++) {
             key.add(i);
         }
@@ -115,11 +122,23 @@ public class Breaker {
             plaintext[i] = bestKey.indexOf(cipherBinary[i]);
         }
         StringBuilder sb = new StringBuilder();
-        for (int i: plaintext
-             ) {
+        for (int i : plaintext
+        ) {
             sb.append(transIntToChar.get(i));
         }
-        System.out.println(sb.toString());
+        breakerResult = sb.toString();
+
+        StringBuilder keyStringBuilder = new StringBuilder();
+        for (int i : bestKey
+        ) {
+            keyStringBuilder.append(transIntToChar.get(i));
+        }
+        SubstitutionKey substitutionKey = new SubstitutionKey();
+        if (substitutionKey.setKey(keyStringBuilder.toString())) {
+            Substitution substitution = new Substitution(substitutionKey);
+            breakerResult = substitution.decrypt(cipher);
+        }
+        System.out.println(breakerResult);
     }
     private int hillClimb(ArrayList<Integer> key, int[] cipherBinary, ArrayList<ArrayList<Integer>> charPositions){
         int textLength = cipherBinary.length;
