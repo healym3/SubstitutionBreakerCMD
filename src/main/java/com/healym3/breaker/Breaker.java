@@ -60,6 +60,9 @@ public class Breaker {
     }
 
     public void breakCipher(String cipher){
+
+        long startTime = System.currentTimeMillis();
+
         cipher = cipher.toLowerCase(Locale.ROOT);
         StringBuilder stringBuilder = new StringBuilder();
         for (char ch: cipher.toCharArray()
@@ -113,7 +116,8 @@ public class Breaker {
         }
         System.out.println("Final: " + bestKey);
 
-
+        long endTime = System.currentTimeMillis();
+        long duration = endTime - startTime;
 
 
         int textLength = cipherBinary.length;
@@ -139,6 +143,7 @@ public class Breaker {
             breakerResult = substitution.decrypt(cipher);
         }
         System.out.println(breakerResult);
+        System.out.println("Duration: " + duration + " milliseconds");
     }
     private int hillClimb(ArrayList<Integer> key, int[] cipherBinary, ArrayList<ArrayList<Integer>> charPositions){
         int textLength = cipherBinary.length;
