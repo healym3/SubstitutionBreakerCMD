@@ -4,6 +4,7 @@ import java.io.*;
 import java.security.SecureRandom;
 import java.util.*;
 
+import com.healym3.data.BreakerResult;
 import com.healym3.substitution.Substitution;
 import com.healym3.substitution.SubstitutionKey;
 import org.json.JSONArray;
@@ -15,12 +16,13 @@ public class Breaker {
     private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
     private static final int ALPHABET_SIZE = 26;
     private static final int ROUNDS = 10000;
-    private static final int CONSOLIDATE = 3;
+    private static final int CONSOLIDATE = 5;
     private Map<Character, Integer> transCharToInt;
     private Map<Integer, Character> transIntToChar;
     private int[] quadgrams;
 
-    private String breakerResult;
+    private String plainText;
+    private BreakerResult breakerResult;
 
     public Breaker() {
 
@@ -55,11 +57,15 @@ public class Breaker {
 
     }
 
-    public String getBreakerResult() {
+    public BreakerResult getBreakerResult() {
         return breakerResult;
     }
 
-    public void breakCipher(String cipher){
+    public String getPlainText() {
+        return plainText;
+    }
+
+    public BreakerResult breakCipher(String cipher){
 
         long startTime = System.currentTimeMillis();
 
@@ -88,7 +94,7 @@ public class Breaker {
             charPositions.get(cipherBinary[i]).add(i);
         }
 
-        System.out.println(charPositions);
+//        System.out.println(charPositions);
 
         ArrayList<Integer> key = new ArrayList<>(ALPHABET_SIZE);
         for (int i = 0; i < ALPHABET_SIZE; i++) {
@@ -98,11 +104,12 @@ public class Breaker {
         bestKey = (ArrayList<Integer>) key.clone();
         int localMaximum = 0;
         int localMaximumHit = 1;
-
-        for (int i = 0; i < ROUNDS; i++) {
+        //new
+        int roundsCounter;
+        for (roundsCounter = 0; roundsCounter < ROUNDS; roundsCounter++) {
             Collections.shuffle(key, new SecureRandom());
             int fitness = hillClimb(key, cipherBinary, charPositions);
-            System.out.println("fitness: " + fitness);
+//            System.out.println("fitness: " + fitness);
             if (fitness > localMaximum){
                 localMaximum = fitness;
                 localMaximumHit = 1;
@@ -114,7 +121,7 @@ public class Breaker {
                 }
             }
         }
-        System.out.println("Final: " + bestKey);
+//        System.out.println("Final: " + bestKey);
 
         long endTime = System.currentTimeMillis();
         long duration = endTime - startTime;
@@ -125,12 +132,6 @@ public class Breaker {
         for (int i = 0; i < textLength; i++) {
             plaintext[i] = bestKey.indexOf(cipherBinary[i]);
         }
-        StringBuilder sb = new StringBuilder();
-        for (int i : plaintext
-        ) {
-            sb.append(transIntToChar.get(i));
-        }
-        breakerResult = sb.toString();
 
         StringBuilder keyStringBuilder = new StringBuilder();
         for (int i : bestKey
@@ -138,12 +139,15 @@ public class Breaker {
             keyStringBuilder.append(transIntToChar.get(i));
         }
         SubstitutionKey substitutionKey = new SubstitutionKey();
-        if (substitutionKey.setKey(keyStringBuilder.toString())) {
-            Substitution substitution = new Substitution(substitutionKey);
-            breakerResult = substitution.decrypt(cipher);
-        }
-        System.out.println(breakerResult);
-        System.out.println("Duration: " + duration + " milliseconds");
+        substitutionKey.setKey(keyStringBuilder.toString());
+        Substitution substitution = new Substitution(substitutionKey);
+        plainText = substitution.decrypt(cipher);
+
+//        System.out.println(plainText);
+//        System.out.println("Duration: " + duration + " milliseconds");
+        breakerResult = new BreakerResult(cipher, plainText, keyStringBuilder.toString(), ((double)localMaximum/(cipherBinary.length - 3) / 10), roundsCounter, duration);
+        return breakerResult;
+
     }
     private int hillClimb(ArrayList<Integer> key, int[] cipherBinary, ArrayList<ArrayList<Integer>> charPositions){
         int textLength = cipherBinary.length;
